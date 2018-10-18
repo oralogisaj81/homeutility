@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" novalidate>
+      <div class="form-group">
+        <label class="col-md-4">Bank Name</label>
+        <input type="text" class="form-control" name="bankname" formControlName="bankname" #bankname/>
+      </div>
+      <div *ngIf="angForm.controls['bankname'].invalid && (angForm.controls['bankname'].dirty || angForm.controls['bankname'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['bankname'].errors.required">
+          Bank Name is required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4">Account Number</label>
+        <input type="text" class="form-control" name="accountnumber" formControlName="accountnumber" #accountnumber/>
+        </div>
+      <div *ngIf="angForm.controls['accountnumber'].invalid && (angForm.controls['accountnumber'].dirty || angForm.controls['accountnumber'].touched)" class="alert alert-danger">
+        <div *ngIf="angForm.controls['accountnumber'].errors.required">
+          Account Number is required.
+        </div>
+	    </div>
+          <div class="form-group">
+          <label class="col-md-4">Customer Id</label>
+          <input type="text" class="form-control" name="customerid" formControlName="customerid" #customerid/>
+          </div>
+          <div *ngIf="angForm.controls['customerid'].invalid && (angForm.controls['customerid'].dirty || angForm.controls['customerid'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['customerid'].errors.required">
+              Customer Id is required.
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4">Account Holder Name</label>
+            <input type="text" class="form-control" name="accountholdername" formControlName="accountholdername" #accountholdername />
+            </div>
+            <div *ngIf="angForm.controls['accountholdername'].invalid && (angForm.controls['accountholdername'].dirty || angForm.controls['accountholdername'].touched)" class="alert alert-danger">
+              <div *ngIf="angForm.controls['accountholdername'].errors.required">
+                Account Holder Name is required.
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4">Current Account Bank Balance</label>
+              <input type="text" class="form-control" name="bankbalance" formControlName="bankbalance" #bankbalance/>
+              </div>
+              <div *ngIf="angForm.controls['bankbalance'].invalid && (angForm.controls['bankbalance'].dirty || angForm.controls['bankbalance'].touched)" class="alert alert-danger">
+                <div *ngIf="angForm.controls['bankbalance'].errors.required">
+                  Bank Balance is required.
+                </div>
+              </div>
+      <div class="form-group">
+        <button (click)="addBankBalance(bankname.value, accountnumber.value, customerid.value, accountholdername.value, bankbalance.value)" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-primary">Create Bank Balance Record</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+</div>
