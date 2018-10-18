@@ -1,29 +1,29 @@
 const express = require('express');
 const app = express();
 const bankBalanceRoutes = express.Router();
-
-// Require bankBalanceModel model in our routes module
-let BankBalanceModel = require('../models/bankbalancemodel');
-
-// Defined store route
-bankBalanceRoutes.route('/add').post(function (req, res) {
+const mongodbName = 'homeangulardb';
+function getMongoDbConnection() {
   const MongoClient = require('mongodb').MongoClient;
   const assert = require('assert');
   // Connection URL
   const url = 'mongodb://localhost:27017';
   // Database Name
-  const dbName = 'homeangulardb';
+  const dbName = mongodbName;
   // Create a new MongoClient
   const client = new MongoClient(url,{useNewUrlParser: true });
+  return client;
+}
+// Defined store route
+bankBalanceRoutes.route('/add').post(function (req, res) {
+  const dbconnection = getMongoDbConnection();
   // Use connect method to connect to the Server
-  client.connect(function(err) {
-    assert.equal(null, err);
+  dbconnection.connect(function(err) {
     console.log("Connected successfully to server");
-    const db = client.db(dbName);
+    const db = dbconnection.db(mongodbName);
     insertBankBalances(db, function() {
-      client.close();
+      dbconnection.close();
     });
-    client.close();
+    dbconnection.close();
   });
   const insertBankBalances = function(db, callback) {
     // Get the documents collection
@@ -41,7 +41,6 @@ bankBalanceRoutes.route('/add').post(function (req, res) {
       }
       else {
         res.json(result);
-        //res.status(200).json({'bankbalanceModelobj': 'BankBalance Record is added successfully'});
       }
       callback(result);
     });
@@ -50,30 +49,20 @@ bankBalanceRoutes.route('/add').post(function (req, res) {
 
 // Defined get data(index or listing) route
 bankBalanceRoutes.route('/').get(function (req, res) {
-  const MongoClient = require('mongodb').MongoClient;
-  const assert = require('assert');
-  // Connection URL
-  const url = 'mongodb://localhost:27017';
-  // Database Name
-  const dbName = 'homeangulardb';
-  // Create a new MongoClient
-  const client = new MongoClient(url,{useNewUrlParser: true });
-  // Use connect method to connect to the Server
-  client.connect(function(err) {
-    assert.equal(null, err);
+  const dbconnection = getMongoDbConnection();
+  dbconnection.connect(function(err) {
     console.log("Connected successfully to server");
-    const db = client.db(dbName);
+    const db = dbconnection.db(mongodbName);
     findBankBalances(db, function() {
-         client.close();
+         dbconnection.close();
        });
-    client.close();
+    dbconnection.close();
   });
   const findBankBalances = function(db, callback) {
     // Get the documents collection
     const collection = db.collection('bankbalances');
     // Find some documents
     collection.find({}).toArray(function(err, docs) {
-      assert.equal(err, null);
       console.log("Found the following records");
       console.log(docs)
       callback(docs);
@@ -91,25 +80,15 @@ bankBalanceRoutes.route('/').get(function (req, res) {
 bankBalanceRoutes.route('/bankbalanceedit/:id').get(function (req, res) {
   let id = req.params.id;
   console.log('inside bankbalanceroute.js edit route method id value is ::',id);
-
-
-  const MongoClient = require('mongodb').MongoClient;
-  const assert = require('assert');
-  // Connection URL
-  const url = 'mongodb://localhost:27017';
-  // Database Name
-  const dbName = 'homeangulardb';
-  // Create a new MongoClient
-  const client = new MongoClient(url,{useNewUrlParser: true });
+  const dbconnection = getMongoDbConnection();
   // Use connect method to connect to the Server
-  client.connect(function(err) {
-    assert.equal(null, err);
+  dbconnection.connect(function(err) {
     console.log("Connected successfully to server");
-    const db = client.db(dbName);
+    const db = dbconnection.db(mongodbName);
     editBankBalances(db, function() {
-      client.close();
+      dbconnection.close();
     });
-    client.close();
+    dbconnection.close();
   });
   const editBankBalances = function(db, callback) {
     // Get the documents collection
@@ -135,23 +114,15 @@ bankBalanceRoutes.route('/bankbalanceedit/:id').get(function (req, res) {
 
 //  Defined update route
 bankBalanceRoutes.route('/update/:id').post(function (req, res) {
-  const MongoClient = require('mongodb').MongoClient;
-  const assert = require('assert');
-  // Connection URL
-  const url = 'mongodb://localhost:27017';
-  // Database Name
-  const dbName = 'homeangulardb';
-  // Create a new MongoClient
-  const client = new MongoClient(url,{useNewUrlParser: true });
+  const dbconnection = getMongoDbConnection();
   // Use connect method to connect to the Server
-  client.connect(function(err) {
-    assert.equal(null, err);
+  dbconnection.connect(function(err) {
     console.log("Connected successfully to server");
-    const db = client.db(dbName);
+    const db = dbconnection.db(mongodbName);
     updateBankBalances(db, function() {
-      client.close();
+      dbconnection.close();
     });
-    client.close();
+    dbconnection.close();
   });
   const updateBankBalances = function(db, callback) {
     // Get the documents collection
@@ -183,24 +154,15 @@ bankBalanceRoutes.route('/update/:id').post(function (req, res) {
 // Defined delete | remove | destroy route
 bankBalanceRoutes.route('/delete/:id').get(function (req, res) {
   console.log('inside bankbalanceroute.js ...about to delete ');
-
-  const MongoClient = require('mongodb').MongoClient;
-  const assert = require('assert');
-  // Connection URL
-  const url = 'mongodb://localhost:27017';
-  // Database Name
-  const dbName = 'homeangulardb';
-  // Create a new MongoClient
-  const client = new MongoClient(url,{useNewUrlParser: true });
+const dbconnection = getMongoDbConnection();
   // Use connect method to connect to the Server
-  client.connect(function(err) {
-    assert.equal(null, err);
+  dbconnection.connect(function(err) {
     console.log("Connected successfully to server");
-    const db = client.db(dbName);
+    const db = dbconnection.db(mongodbName);
     deleteBankBalanceRecord(db, function() {
-      client.close();
+      dbconnection.close();
     });
-    client.close();
+    dbconnection.close();
   });
   const deleteBankBalanceRecord = function(db, callback) {
     console.log('inside bankbalanceroute.js...deleteBankBalance method() ');
