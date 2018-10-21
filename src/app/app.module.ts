@@ -11,6 +11,11 @@ import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { BankbalanceserviceService } from './bankbalanceservice.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 const routes: Routes = [
   {
@@ -47,8 +52,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     SlimLoadingBarModule,
     HttpClientModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
+    ],
   providers: [ BankbalanceserviceService ],
   bootstrap: [AppComponent]
 })

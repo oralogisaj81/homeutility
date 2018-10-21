@@ -1,2 +1,6 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import "../node_modules/ng2-slim-loading-bar/style.css";
+/* @import "../node_modules/ng2-slim-loading-bar/style.css"; */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+table {
+    width: 100%;
+}

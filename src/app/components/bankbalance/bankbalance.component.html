@@ -10,6 +10,65 @@
     </ul>
   </div>
 </nav>
+
+<div class="mat-elevation-z8"  >
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Id Column -->
+    <ng-container  matColumnDef="Bank Name" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bank Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.bankname }}</td>
+    </ng-container>
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="Account Number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Account Number</th>
+      <td mat-cell *matCellDef="let element"> {{ element.accountnumber }} </td>
+    </ng-container>
+
+    <!-- Category Column -->
+    <ng-container matColumnDef="Customer Id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Id </th>
+      <td mat-cell *matCellDef="let element"> {{ element.customerid }} </td>
+    </ng-container>
+
+    <!-- Writer Column -->
+    <ng-container matColumnDef="Account Holder Name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Account Holder Name </th>
+      <td mat-cell *matCellDef="let element"> {{ element.accountholdername }} </td>
+    </ng-container>
+
+    <!-- Writer Column -->
+    <ng-container matColumnDef="Bank Balance">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bank Balance </th>
+      <td mat-cell *matCellDef="let element"> {{ element.bankbalance }} </td>
+    </ng-container>
+
+    <!-- Writer Column -->
+    <ng-container matColumnDef="Bank Balance Updated Date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bank Balance Updated Date </th>
+      <td mat-cell *matCellDef="let element"> {{ element.updated_date }} </td>
+    </ng-container>
+
+    <!-- Writer Column -->
+    <ng-container matColumnDef="Actions Edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions Edit</th>
+      <td mat-cell *matCellDef="let element"> <a [routerLink]="['/bankbalanceedit', element._id]" class="btn btn-primary">Edit</a></td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions Delete">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions Delete </th>
+      <td mat-cell *matCellDef="let element"> <button (click)="deleteBankBalance(element._id)"  class="btn btn-danger">Delete</button></td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
+
+<!--
 <table class="table table-hover">
   <thead>
   <tr>
@@ -35,7 +94,7 @@
           <td><button (click)="deleteBankBalance(bankbalance._id)"  class="btn btn-danger">Delete</button></td>
       </tr>
   </tbody>
-</table>
+</table> -->
 <nav>
  <a routerLink="/dashboard">Go Home</a>
 </nav>
