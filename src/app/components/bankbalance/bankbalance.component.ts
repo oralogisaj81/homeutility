@@ -17,8 +17,8 @@ export class BankbalanceComponent implements OnInit {
   constructor(private bankbalanceservice: BankbalanceserviceService,private route: ActivatedRoute,
     private router: Router) { }
 
-    displayedColumns: string[] = ['Bank Name', 'Account Number', 'Customer Id', 'Account Holder Name',
-    'Bank Balance', 'Bank Balance Updated Date', 'Actions Edit', 'Actions Delete'];
+    displayedColumns: string[] = ['bankname', 'accountnumber', 'customerid', 'accountholdername',
+    'bankbalance', 'updated_date', 'Actions Edit', 'Actions Delete'];
     dataSource = new MatTableDataSource();
 
   ngOnInit() {
